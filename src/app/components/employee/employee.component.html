@@ -1,0 +1,80 @@
+<div class="employee">
+  <div class="employee-header">
+    <div class="add-new-wrapper">
+      <button class="mat-raised-button add-new" color="accent" aria-hidden="true" 
+      (click)="onAdd();"
+      >
+        <mat-icon role="img" aria-hidden="true">add</mat-icon>
+        Add New Employee 
+      </button>
+    </div>
+    <div class="filter-wrapper">
+      <label for="search">
+        <mat-icon role="img" aria-hidden="true">search</mat-icon>
+      </label>
+      <mat-form-field>
+        <input id="search" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search an agent">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="employee-table-wrapper">
+    <mat-table [dataSource]="dataSource" matSort>
+      <!-- ID Column -->
+      <ng-container matColumnDef="avatar">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let employee"> 
+            <img class="employee-avatar" *ngIf="!employee.picture" src="../../../../assets/user-avatar.svg">
+            <img class="employee-avatar" *ngIf="employee.picture" [src]="baseUrl + employee.picture">
+        </mat-cell>
+      </ng-container>
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Full Name </mat-header-cell>
+        <mat-cell *matCellDef="let employee"> {{employee.surname + ' ' + employee.name}} </mat-cell>
+      </ng-container>
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="username">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> User Name </mat-header-cell>
+        <mat-cell *matCellDef="let employee"> {{employee.username}} </mat-cell>
+      </ng-container>
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="role">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
+        <mat-cell *matCellDef="let employee"> {{employee.role}} </mat-cell>
+      </ng-container>
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="phone">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Phone number </mat-header-cell>
+        <mat-cell *matCellDef="let employee"> {{employee.phone}} </mat-cell>
+      </ng-container>
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let employee">
+          <a class="edit action-button" title="edit employee"
+                  (click)="onEdit(employee);">
+                  <img src="../../../../assets/action-edit.svg">        
+          </a>
+          <a class="delete action-button" title="delete employee"
+                  (click)="onDelete(employee)">
+                  <img src="../../../../assets/action-delete.svg">
+          </a>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>
+<app-add-employee *ngIf="showAddEmployee" 
+  [employee]="employee" 
+  [employees]="employees"
+  (eventClosed)="onEventClosed($event)">
+</app-add-employee>

@@ -1,0 +1,186 @@
+<div class="row content-i">
+  <div class="col-lg-6 content-x content-x1">
+      <div class="col-lg-12 file-upload-container">
+        <app-file-upload></app-file-upload>
+      </div>
+
+      <div class="col-lg-12 line-container">
+        <form>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title class="title-line">
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-xs-3">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Line Name" aria-label="line_name" [formControl]="namesCtrl" class="line-input" [(ngModel)]="nameToSearch">
+                      </mat-form-field>
+                    </div>
+                      <div class="col-xs-1" id="search">
+                        <mat-card-actions>
+                          <button type="button" class="btn btn-info" (click)="search();">
+                          <span class="glyphicon glyphicon-search"></span> Search
+                          </button>
+                        </mat-card-actions>
+                      </div>
+                      <div class="col-xs-1">
+                        <mat-card-actions>
+                          <button type="button" class="btn btn-info" (click)="featchMatTable(alllines);">
+                          <span class="glyphicon glyphicon-share-alt"></span> Display all
+                          </button>
+                        </mat-card-actions>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+        </form>
+        <div class="table">
+            <mat-table [dataSource]="dataSource" matSort>
+
+              <!-- Position Column -->
+              <ng-container matColumnDef="route_short_name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Line #</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.route_short_name}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="route_long_name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Destination</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.route_long_name}} </mat-cell>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="route_type">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Vehicle Type</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{types[element.route_type]}} </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="highlightRow(row)"
+                       [style.background]="highlightedRows.indexOf(row) != -1 ? 'lightblue' : ''"></mat-row>
+
+
+            </mat-table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
+      </div>
+  </div>
+
+    <div class="col-lg-6 content-x content-x2">
+      <div class="row">
+        <div class="col-lg-12 content-z">
+          <div id="newline-title">
+            <h1>NEW LINE</h1>
+          </div>
+          <form>
+            <mat-card>
+              <mat-card-content>
+
+                      <div class="row">
+                        <div class="col-xs-6 content-y">
+
+                          <mat-form-field>
+                            <input  placeholder="Network" matInput name="network" [(ngModel)]="newLine.network">
+                          </mat-form-field>
+
+                          <mat-form-field>
+                            <input  placeholder="Destination" matInput name="route_long_name" [(ngModel)]="newLine.route_long_name">
+                          </mat-form-field>
+
+                          <mat-form-field>
+                            <input  placeholder="Color" matInput name="route_color" [(ngModel)]="newLine.route_color">
+                          </mat-form-field>
+
+                          <mat-form-field>
+                            <input  placeholder="Stop Name" matInput name="stop_name" [(ngModel)]="newStop.name">
+                          </mat-form-field>
+
+                          <!--
+                          <mat-form-field>
+                            <input matInput placeholder="" style="display: none" >
+                            <mat-radio-group>
+                              <mat-radio-button value="forth">Way 1</mat-radio-button>
+                              <mat-radio-button value="back">Way 2</mat-radio-button>
+                            </mat-radio-group>
+                          </mat-form-field>
+                          -->
+
+                        </div>
+
+                        <div class="col-xs-6 content-y">
+                          <mat-form-field>
+                            <input  placeholder="Line number" matInput name="route_short_name" [(ngModel)]="newLine.route_short_name">
+                            <!-- <mat-error> error </mat-error> -->
+                          </mat-form-field>
+
+                          <mat-form-field class="col-xs-3 input-el">
+                            <mat-select placeholder="Type"
+                                        [(ngModel)]="newLine.route_type"
+                                        name="type">
+                              <mat-option *ngFor="let type of types"
+                                          [value]="type">
+                                {{ type }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+
+                          <mat-form-field>
+                            <input  placeholder="Text Color" matInput name="route_text_color" [(ngModel)]="newLine.route_text_color">
+                          </mat-form-field>
+
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-xs-6 content-y">
+                          <mat-form-field>
+                            <input  placeholder="Latitude" matInput name="latitude" [(ngModel)]="newStop.latitude">
+                          </mat-form-field>
+
+                        </div>
+                        <div class="col-xs-6 content-y">
+                          <mat-form-field>
+                            <input  placeholder="Longitude" matInput name="longitude" [(ngModel)]="newStop.longitude">
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <mat-card-actions>
+                      <button type="button" mat-raised-button class="add-stop" style="display: inline-block; margin-left: 15px;" (click)="addStop();">ADD</button>
+                    </mat-card-actions>
+                      <ul [dragula]='"items"' [dragulaModel]='items' id="item-ul" class="make-scrollable">
+                        <li class="item-li" *ngFor="let item of items">{{item}}</li>
+                      </ul>
+                  </div>
+                </div>
+
+                <mat-card-actions id="save">
+                  <button type="button" mat-raised-button class="button-form" style="margin-right: 15px;" (click)="addLine();">SAVE</button>
+                </mat-card-actions>
+              </mat-card-content>
+            </mat-card>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+</div>
+    <div id="mapview">
+      <app-mapview
+        [options]="mapOptions"
+        [mapdata]="mapdata"
+        (mapDataClickedEmitter)="onBusStopMapDataChanged($event)"
+        [newStopAdded]="newStopAdded"
+        [stopsToDisplay]="stopsToDisplay">
+      </app-mapview>
+    </div>

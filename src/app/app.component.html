@@ -1,0 +1,23 @@
+<div class="wrapper">
+  <app-sidebar *ngIf="showSidebar$ | async"></app-sidebar>
+
+  <router-outlet></router-outlet>
+
+  <!-- Page Content Holder -->
+  <div id="content">
+
+    <app-navbar *ngIf="showNavbar$ | async"></app-navbar>
+    <div id="container">
+      <flash-messages></flash-messages>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<!-- <app-line (newStopAdded)="onStopAdded($event)"></app-line> -->
+
+<!--
+<div id="map-clicked-container">
+  <app-mapview (mapClicked)="mapClicked($event)"></app-mapview>
+</div>
+-->

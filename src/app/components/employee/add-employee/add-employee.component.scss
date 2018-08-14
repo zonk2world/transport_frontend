@@ -1,0 +1,88 @@
+:host {
+  .add-employee {
+    background: #ffffff;
+    margin-top: 25px;
+    padding: 25px;
+
+    &-title {
+      color: #8dc63f;
+      font-weight: 500;
+      font-size: 20px;
+      padding-bottom: 25px;
+      &.edit {
+        color: #25aae1;
+      }
+    }
+
+    &-form {
+      display: flex;
+      flex-wrap: wrap;
+      .mat-form-field {
+        margin-right: 25px;
+      }
+    }
+    &-avatar {
+      flex: 0 0 225px;
+      background: #e5e5e5;
+      margin-right: 25px;
+      border-radius: 4px;
+      height: 225px;
+      cursor: pointer;
+      img {
+        width: 225px;
+        height: 225px;
+        padding: 0;
+        border-radius: 4px;
+      }
+      .attach-photo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+
+        .photo {
+          display: inline-flex;
+          flex-direction: column;
+          align-items: center;
+          color: #868e96;
+          .mat-icon {
+            font-size: 56px;
+            height: 56px;
+            width: 56px;
+          }
+          span {
+            text-align: center;
+          }
+        }
+      }
+    }
+    &-info {
+      flex: auto;
+    }
+    .button-wrapper {
+      align-self: flex-end;
+      .button-action {
+        display: flex;
+        flex-direction: column;
+        &-cancel {
+          margin-bottom: 22px;
+          margin-top: 25px;
+          background: #e5e5e5;
+          color: #868e96;
+          font-weight: bold;
+          letter-spacing: 0.8px;
+        }
+        &-ok {
+          background: #8dc63f;
+          color: #ffffff;
+          font-weight: bold;
+          letter-spacing: 0.8px;  
+          &.edit {
+            background: #25aae1;
+          }
+        }
+      }
+    }
+  }
+}

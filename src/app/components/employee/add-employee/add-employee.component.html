@@ -1,0 +1,149 @@
+<div class="add-employee">
+  <div class="add-employee-title"
+  [ngClass]="{ 'edit' : employee.uid }"
+  >
+    {{employee.uid ? 'Edit Employee' : 'Add New Employee'}}
+  </div>
+  <div class="add-employee-form-wrapper">
+    <form class="add-employee-form" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+
+      <div class="add-employee-avatar">
+        <div *ngIf="!employee.picture" class="attach-photo" (click)="openDialog()">
+          <div class="photo"> 
+            <mat-icon role="img" aria-hidden="true">photo_camera</mat-icon>
+             <span>upload employee <br> photo</span>
+          </div> 
+        </div>
+        <img *ngIf="employee.picture"  [src]="baseUrl + employee.picture" (click)="openDialog()">
+      </div>
+      <div class="add-employee-info">
+        <div class="d-flex">
+            <mat-form-field>
+              <input matInput
+                      name="surname"
+                      [(ngModel)]="employee.surname"
+                      required
+                      placeholder="Surname"
+                      [formControlName]="'surname'">
+              <mat-error *ngIf="employeeForm.get('surname').hasError('required')"> Surname is required </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput
+                    name="name"
+                    [(ngModel)]="employee.name"
+                    required
+                    placeholder="Name"
+                    [formControlName]="'name'">
+                    <mat-error *ngIf="employeeForm.get('name').hasError('required')"> Name is required </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="d-flex" *ngIf="employee.uid == user.uid">
+            <mat-form-field>
+              <input matInput
+                      type="password"
+                      name="password"
+                      [(ngModel)]="employee.password"
+                      required
+                      placeholder="Password"
+                      [formControlName]="'password'">
+              <mat-error *ngIf="employeeForm.get('password').hasError('mismatch')"> Passwords don't match </mat-error>
+              <mat-error *ngIf="employeeForm.get('password').hasError('required')"> Password is required </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput
+                    type="password"
+                    name="confirm_password"
+                    [(ngModel)]="confirm_password"
+                    required
+                    placeholder="Confirm password"
+                    [formControlName]="'confirm_password'">
+              <mat-error *ngIf="employeeForm.get('confirm_password').hasError('mismatch')"> Passwords don't match </mat-error>
+              <mat-error *ngIf="employeeForm.get('confirm_password').hasError('required')"> Confirm password is required </mat-error>
+            </mat-form-field>
+        </div>
+      
+        <div class="d-flex">
+            <mat-form-field>
+              <input matInput
+                      name="username"
+                      [(ngModel)]="employee.username"
+                      required
+                      placeholder="Username"
+                      [formControlName]="'username'">
+              <mat-error *ngIf="employeeForm.get('username').hasError('not_unique')"> Username is not unique </mat-error>
+              <mat-error *ngIf="employeeForm.get('username').hasError('required')"> Username is required </mat-error>
+              <mat-error *ngIf="employeeForm.get('username').hasError('email')"> Invalid email address </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput
+                    name="phone"
+                    [(ngModel)]="employee.phone"
+                    required
+                    placeholder="Phone number"
+                    [formControlName]="'phone'">
+                    <mat-error *ngIf="employeeForm.get('phone').hasError('mismatch')"> Not valid phone number </mat-error>
+                    <mat-error *ngIf="employeeForm.get('phone').hasError('required')"> Phone number is required </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="d-flex">
+            <mat-form-field *ngIf="employee.uid">
+              <mat-select
+                placeholder="Role"
+                name='role'
+                [formControlName]="'role'"
+                [(ngModel)]="employee.role"
+                required>
+                <mat-option *ngFor="let role of Roles" [value]="role">
+                  {{role}}
+                </mat-option>
+              </mat-select>
+              <mat-error>
+                Role is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field *ngIf="!employee.uid">
+              <!-- <mat-select
+                placeholder="Role"
+                name='role'
+                [formControlName]="'role'"
+                [(ngModel)]="employee.role"
+                required>
+                <mat-option *ngFor="let role of Roles" [value]="role">
+                  {{role}}
+                </mat-option>
+              </mat-select> -->
+              <!-- <mat-error>
+                Role is required
+              </mat-error> -->
+              <input matInput
+              name="role"
+              [(ngModel)]="employee.role"
+              required
+              readonly
+              placeholder="Role"
+              [formControlName]="'role'">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput
+                    name="network"
+                    readonly
+                    [(ngModel)]="employee.network"
+                    placeholder="Network"
+                    [formControlName]="'network'">
+            </mat-form-field>
+          </div>
+      </div>
+
+      <div class="button-wrapper">
+          <mat-card-actions class="button-action">
+            <button class="button-action-cancel" type="button" mat-raised-button (click)="onClose()" >CANCEL</button>
+            <button class="button-action-ok" type="submit" mat-raised-button
+              [ngClass]="{ 'edit' : employee.uid }"            
+            >{{employee.uid ? 'UPDATE' : 'CREATE'}}</button>
+          </mat-card-actions>
+      </div>
+    </form>
+  </div>
+</div>

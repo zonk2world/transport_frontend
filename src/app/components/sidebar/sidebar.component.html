@@ -1,0 +1,142 @@
+<!-- Sidebar Holder -->
+<nav id="sidebar" [class]="sidebarStatus">
+  <div class="sidebar-header">
+    <a [routerLink]="['']">
+      <h3><img src="assets/datategy.svg" width="100%" alt="Datategy"></h3>
+      <strong>DG</strong>
+    </a>
+  </div>
+
+  <ul class="list-unstyled components" *ngIf="authService.loggedIn();else notLoggedIn">
+    <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+      <a class="cat-link" [routerLink]="['generalview']">
+      <img   src="assets/sidebar-icons/general_view.svg">
+        General View
+      </a>
+    </li>
+    <!--
+    <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+      <a class="cat-link" [routerLink]="['charts']">
+        <img   src="assets/sidebar-icons/charts.svg">
+        Charts
+      </a>
+    </li>
+    -->
+    <li>
+      <a class="cat-link" data-target="#humanResourcesMenu" href="javascript:;" data-toggle="collapse" aria-expanded="true">
+        <img  src="assets/sidebar-icons/hr_trans.svg">
+        Human Resources
+      </a>
+      <ul class="collapse list-unstyled" id="humanResourcesMenu">
+        <!--
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+          <a class="subcat-link" [routerLink]="['agents']">
+            <img src="assets/sidebar-icons/agents_trans.svg">
+            Agents
+          </a>
+        </li>
+        -->
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+          <a class="subcat-link" [routerLink]="['employee']">
+            <img src="assets/sidebar-icons/agents_trans.svg">
+            Agents
+          </a>
+        </li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+          <a class="subcat-link" [routerLink]="['team']">
+            <img src="assets/sidebar-icons/team_trans.svg">
+            Team
+          </a>
+        </li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+          <a class="subcat-link" [routerLink]="['shifts']">
+            <img src="assets/sidebar-icons/shifts_trans.svg">
+            Shifts
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a class="cat-link" href="#infrastructureMenu" data-toggle="collapse" aria-expanded="false">
+        <img  src="assets/sidebar-icons/infrastructure_trans.svg">
+        Infrastructure
+      </a>
+      <ul class="collapse list-unstyled" id="infrastructureMenu">
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+          <a class="subcat-link" [routerLink]="['line']">
+            <img src="assets/sidebar-icons/line_trans.svg">
+            Line
+          </a>
+        </li>
+        <!--
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+          <a class="subcat-link" [routerLink]="['stop']">
+            <img src="assets/sidebar-icons/bus_stop_trans.svg">
+            Bus Stop
+          </a>
+        </li>
+        -->
+      </ul>
+    </li>
+    <!--
+    <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+      <a class="cat-link" [routerLink]="['vehicles']">
+        <img   src="assets/sidebar-icons/vehicles_trans.svg">
+        Vehicles
+      </a>
+    </li>
+    <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+      <a class="cat-link" [routerLink]="['schedule']">
+        <img   src="assets/sidebar-icons/schedule_trans.svg">
+        Schedule
+      </a>
+    </li>
+    -->
+    <!--
+    <li>
+      <a class="cat-link" href="#usersMenu" data-toggle="collapse" aria-expanded="false">
+        <img  src="assets/sidebar-icons/products.svg">
+        Users
+      </a>
+      <ul class="collapse list-unstyled" id="usersMenu">
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+          <a class="subcat-link" [routerLink]="['transportTicket']">
+            <img src="assets/sidebar-icons/tariff.svg">
+            Transport Ticket
+          </a>
+        </li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+          <a class="subcat-link" [routerLink]="['authentication']">
+            <img src="assets/sidebar-icons/violation.svg">
+            Authentication
+          </a>
+        </li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+          <a class="subcat-link" [routerLink]="['verbalization']">
+            <img src="assets/sidebar-icons/violation.svg">
+            Verbalization
+          </a>
+        </li>
+      </ul>
+    </li>
+    -->
+    <li>
+      <a class="cat-link" href="#fraudControl" data-toggle="collapse" aria-expanded="false">
+        <img  src="assets/sidebar-icons/fraud_control_trans.svg">
+        Fraud Control
+      </a>
+      <ul class="collapse list-unstyled" id="fraudControl">
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+          <a class="subcat-link" [routerLink]="['itineraries']">
+            <img src="assets/sidebar-icons/line_trans.svg">
+            Itineraries
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul class="list-unstyled CTAs">
+    <small>Copyright © Datategy 2017</small>
+  </ul>
+</nav>

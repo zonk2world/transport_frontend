@@ -1,0 +1,189 @@
+
+mat-row:hover mat-cell{
+  color: white;
+}
+mat-row:hover mat-cell button i{
+  color: #31404b;
+}
+
+.line-container{
+  margin-top: 15px;
+  margin-left: 15px;
+  padding-right: 0;
+  padding-left: 0;
+  height: 1150px;
+  flex: 1 1 auto;
+}
+
+
+.file-upload-container{
+  padding-left: 0;
+  padding-right: 0;
+  flex: 1 1 auto;
+  height: 500px;
+  margin-left: 15px;
+}
+
+#linelist-panel{
+  margin-left: -15px;
+}
+
+#line-input{
+  height: 100%;
+}
+
+.selected{
+  background: #31404b;
+  opacity: 0.9;
+}
+
+.selected mat-cell{
+  color: white;
+}
+.selected mat-cell button i{
+  color: #31404b;
+}
+.title-line{
+  color: #31404b;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.button-form{
+  background-color: #25AAE1;
+  color: white;
+}
+
+.button-form:hover{
+  background-color: #1A6B84;
+}
+
+mat-header-cell{
+  background-color: white;
+  color: #33404A;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+div#container{
+  width: 50%;
+}
+
+#search{
+  width: 20%;
+}
+
+.content-i{
+  overflow: hidden;
+}
+
+.content-x{
+  /* padding-right: 15px; */
+  padding-left: 0px;
+  padding-right: 0px;
+  display: flex;
+  flex-direction: column;
+  height: 715px;
+  /*
+  position: relative;
+  display: inline-grid;
+  vertical-align: top;
+  width: 49%;
+  */
+  /* display: inline-grid; */
+}
+
+.content-x1{
+  padding-right: 30px;
+}
+
+.content-x2{
+  padding-right: 15px;
+}
+
+.content-y{
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.content-z{
+  margin-right: 30px;
+}
+
+#save{
+  text-align: right;
+}
+
+.item-a{
+
+}
+
+.item-li{
+  background-color: #3cb24a;
+  padding: 2px;
+  margin: 5px;
+  list-style-type: none;
+  width: 100%;
+  border: 1px solid darkslategray;
+  text-align: center;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: 2px 2px 2px grey;
+}
+
+#item-ul{
+  padding: 0;
+}
+
+#newline-title{
+  background-color: #3cb24a;
+  width: 100%;
+  text-align: center;
+  color: white;
+  position: relative;
+  height: 50px;
+  padding-top: 5px;
+}
+
+.mat-card{
+  margin-top: 0px;
+}
+
+#mapview{
+  margin-top: 20px;
+  /*padding: 20px;*/
+}
+
+@media screen and (max-width: 992px) {
+  .content-z {
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-top: 20px;
+  }
+
+  #mapview{
+    margin-right: 15px;
+  }
+}
+
+.input-file input{
+  display: none;
+}
+
+.make-scrollable{
+  height: 200px;
+  overflow-y: scroll;
+  border: 1px solid lightgray;
+}
+
+.content-i{
+  overflow: hidden;
+}
+
+.table {
+  height: 360px;
+  overflow: auto;
+}
