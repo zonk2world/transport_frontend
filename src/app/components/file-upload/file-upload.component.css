@@ -1,0 +1,47 @@
+.input-file {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.input-file + label {
+  font-size: 1em;
+  font-weight: normal;
+  color: white;
+  background-color: lightgray;
+  display: inline-block;
+  cursor: pointer; /* "hand" cursor */
+  padding: 6.250px;
+  border-radius: 3px;
+  margin: 0;
+}
+
+.input-file:focus + label,
+.input-file + label:hover {
+  background-color: #3cb24a;;
+}
+
+.input-file:focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.form-group{
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.button-file{
+  display: inline-block;
+}
+
+.content-f{
+  padding: 0;
+}
+
+#row-f{
+  margin: 0;
+}

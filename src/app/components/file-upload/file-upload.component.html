@@ -1,0 +1,43 @@
+<div class="mat-card">
+  <div class="row" id="row-f">
+      <div class="col-lg-6 col-md-6 content-f">
+        <form (ngSubmit)="onSubmitRoute()">
+              <div class="form-group">
+                <input id="file-upload"
+                       name="file"
+                       class="input-file"
+                       data-classButton="btn btn-primary" data-input="false"
+                       type="file"
+                       accept=".txt"
+                       (change)="fileUpload($event, 'route')"
+                       data-buttonText="choose routes.txt file">
+                <label for="file-upload">Choose routes.txt file</label>
+              </div>
+          <div class="button-file">
+            <button type="submit" class="btn btn-success">Submit <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i></button>
+          </div>
+        </form>
+    </div>
+      <div class="col-lg-6 col-md-6 content-f">
+        <form (ngSubmit)="onSubmitStopTimes()">
+          <div class="form-group">
+            <input id="file-upload-stop-times"
+                   name="file"
+                   class="input-file"
+                   data-classButton="btn btn-primary" data-input="false"
+                   type="file"
+                   accept=".csv"
+                   (change)="fileUpload($event, 'stopTimes')">
+            <label for="file-upload-stop-times">Choose stops.txt file</label>
+          </div>
+          <div class="button-file">
+            <button type="submit" class="btn btn-success">Submit <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i></button>
+          </div>
+        </form>
+      </div>
+  </div>
+  <br />
+    <button class="btn btn-success" (click)="updateDB();">Update Database</button>
+</div>
+
+
