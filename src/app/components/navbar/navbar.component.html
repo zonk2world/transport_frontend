@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-sm navbar-light">
+  <button class="dt-navbar-btn" id="sidebarCollapse" (click)="toggleSidebar()"  mat-icon-button>
+    <i class="material-icons">menu</i>
+  </button>
+  <mat-form-field style="padding-left: 2%">
+    <mat-select  placeholder="test">
+      <mat-option>
+        test
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+    </ul>
+    <form class="form-inline my-2 my-lg-0" *ngIf="authService.getLoggedInUser()">
+        <a class="nav-link disabled"  [routerLink]="['profile']"><i class="fa fa-user-circle"></i> Profile</a>
+      <a class="btn btn-outline-danger my-2 my-sm-0" [routerLink]="['login']"><i class="fa fa-sign-out has-danger"></i> Logout</a>
+    </form>
+  </div>
+</nav>

@@ -1,0 +1,23 @@
+.navbar {
+  padding: 15px 10px;
+  background: #fff;
+  border: none;
+  border-radius: 0;
+  margin-bottom: 40px;
+  box-shadow: none;
+}
+
+.dt-navbar-btn {
+  box-shadow: none;
+  outline: none !important;
+  border: none;
+  margin-left: 20px;
+  width: 60px;
+  height: 60px;
+}
+
+.dt-navbar-btn i {
+  font-size: 40px;
+  line-height: 40px;
+  color: #00A8E6;
+}
