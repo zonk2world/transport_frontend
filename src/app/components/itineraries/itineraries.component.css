@@ -1,0 +1,35 @@
+.selectedDay {
+  background: #2daadd;
+  color: #fff;
+  padding-left: 10px;
+}
+
+.add-team {
+  cursor: pointer;
+  width: 25px;
+}
+
+.save-btn {
+  background: #faad4e;
+  color: #fff;
+}
+
+.curs-pointer {
+  cursor: pointer;
+}
+
+.green-color {
+  color: #8fc352;
+}
+
+.yellow-color {
+  color: #faad4e;
+}
+
+.itineraries-title {
+  color: #2daadd;
+}
+
+/deep/ .mat-form-field-flex {
+  height: 39px !important;
+}

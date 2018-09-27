@@ -1,0 +1,184 @@
+<div class="row">
+  <div class="col-lg-12">
+    <ngb-tabset>
+      <ngb-tab title="MANAGING">
+        <ng-template ngbTabContent>
+          <h1 class="itineraries-title">Itineraries</h1>
+          <div class="row">
+            <div class="col-md-2">
+              <mat-form-field>
+                <mat-select placeholder="Select month" [ngModel]="selectedMonth" (ngModelChange)="changeMonth($event)">
+                  <ng-container *ngFor="let month of displayedMonths">
+                    <mat-option [value]="month">
+                    {{ month | date:'yyyy-MMM' }}
+                    </mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <mat-table #table [dataSource]="itineraries">
+            <ng-container matColumnDef="day">
+              <mat-header-cell *matHeaderCellDef> Day</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.day | date : 'EEE'}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="date">
+              <mat-header-cell *matHeaderCellDef> Date</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.day | date: 'MM/dd/y'}}</mat-cell>
+            </ng-container>
+            <ng-container *ngFor="let shfit of shifts" [matColumnDef]="shfit.name">
+              <mat-header-cell *matHeaderCellDef>{{shfit?.name}}</mat-header-cell>
+              <mat-cell *matCellDef="let element"><i class="fa fa-circle" aria-hidden="true"
+                        [ngClass]="{
+                          'green-color' : element.shifts[shfit.name] === ShiftStatus.ShiftEnabled,
+                          'yellow-color' : element.shifts[shfit.name] === ShiftStatus.ShiftModified,
+                          'grey-color' : element.shifts[shfit.name] === ShiftStatus.ShiftDisabled
+                        }"></i></mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="action">
+              <mat-header-cell *matHeaderCellDef>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <img class="add-team" src="assets/addteams.svg" alt="add team" (click)="addTeam(row)">
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <div *ngIf="isSelectedItinerary" class="my-4">
+            <div class="selectedDay d-flex justify-content-between align-items-center">
+              <span>{{selectedDay | date : 'LLLL d' }}</span>
+              <i (click)="isSelectedItinerary = !isSelectedItinerary" class="fa fa-close pr-3 curs-pointer"></i>
+            </div>
+            <div class="row">
+              <div class="col-md-2" *ngFor="let itinerary of selectedItinerary.itineraries; let i = index">
+                <p>{{itinerary.shift}} shift</p>
+                <mat-form-field>
+                  <mat-select placeholder="Select team" [ngModel]="itinerary.team" (ngModelChange)="changeTeam($event, i)">
+                    <mat-option>None</mat-option>
+                    <ng-container *ngFor="let team of teams">
+                      <mat-option *ngIf="isShownTeam(team)" [value]="team">
+                        {{ team?.name}}
+                      </mat-option>
+                    </ng-container>
+                    <mat-option *ngIf="itinerary.team?.uid" [value]="itinerary.team">
+                      {{ itinerary?.team?.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="curs-pointer" (click)="isshowAlert = !isshowAlert">
+                  <img width="25" src="assets/addbutton.svg" alt="Add">
+                  <span class="yellow-color">Add Alert</span>
+                </div>
+              </div>
+            </div>
+            <form [formGroup]="blacklistForm" *ngIf="isshowAlert" class="row pt-3">
+              <div class="col">
+                <div class="row">
+                  <div class="col-lg-2">
+                    <mat-form-field>
+                      <input matInput
+                      [matDatepicker]="dateStart"
+                      placeholder="Start date"
+                      [formControlName]="'startdate'">
+                      <mat-datepicker-toggle matSuffix [for]="dateStart"></mat-datepicker-toggle>
+                      <mat-datepicker #dateStart></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-2">
+                    <mat-form-field>
+                      <input matInput
+                      type="time" atp-time-picker    
+                      placeholder="Start time"
+                      [formControlName]="'starttime'"
+                      required>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-2">
+                    <mat-form-field>
+                      <mat-select placeholder="Line" (ngModelChange)="changeLine($event)"
+                      [formControlName]="'line'"
+                      required>
+                        <ng-container *ngFor="let line of lines">
+                          <mat-option [value]="line.route_short_name">
+                          {{ line.route_short_name + ' (' + line.route_long_name + ')' }}
+                          </mat-option>
+                        </ng-container>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-2">
+                    <mat-form-field>
+                      <mat-select placeholder="Station"
+                        [formControlName]="'station'"
+                        required>
+                          <ng-container *ngFor="let stop of stoplist">
+                            <mat-option [value]="stop">
+                            {{stop}}
+                            </mat-option>
+                          </ng-container>
+                        </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-2">
+                    <mat-form-field>
+                      <input matInput
+                      [matDatepicker]="dateExpected"
+                      placeholder="Expected recovery date"
+                      class="green-color"
+                      [formControlName]="'expecteddate'"
+                      required>
+                      <mat-datepicker-toggle matSuffix [for]="dateExpected"></mat-datepicker-toggle>
+                      <mat-datepicker #dateExpected></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-2">
+                    <mat-form-field>
+                      <input matInput
+                      type="time" atp-time-picker    
+                      placeholder="Expected recovery time"
+                      class="green-color"
+                      [formControlName]="'expectedtime'"
+                      required>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-4">
+                    <textarea rows="5" class="w-100"
+                    placeholder="Write description"
+                    [formControlName]="'description'"
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <button mat-raised-button class="pl-4 save-btn" (click)="addBlacklist()">Save</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="DETAILS">
+        <ng-template ngbTabContent>
+          <app-itineraries-details>
+
+          </app-itineraries-details>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="MAP">
+        <ng-template ngbTabContent>
+          <!--content here-->
+          <app-itineraries-map  [blacklists]="blacklists"
+                                [shifts]="shifts"> </app-itineraries-map>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>

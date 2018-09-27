@@ -1,0 +1,35 @@
+.map {
+  height: 600px;
+  width: 100%;
+}
+
+.popupCustom .leaflet-popup-tip,
+.popupCustom .leaflet-popup-content-wrapper {
+    background: #31404b;
+    opacity: 0.9;
+}
+
+.popupTeamCustom .leaflet-popup-tip,
+.popupTeamCustom .leaflet-popup-content-wrapper {
+    background: #31404b;
+    opacity: 0.9;
+}
+
+.teamIconCustom{
+  background: #31404b;
+  opacity: 0.9;
+}
+
+.my-custom-pin{
+  width: 26px!important;
+  height: 26px!important;
+  margin-top: -12px!important;
+  margin-left: -12px!important;
+}
+
+.my-custom-pin-hover{
+  width: 26px!important;
+  height: 26px!important;
+  margin-top: -12px!important;
+  margin-left: -12px!important;
+}

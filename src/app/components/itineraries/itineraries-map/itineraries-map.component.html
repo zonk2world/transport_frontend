@@ -1,0 +1,62 @@
+<div class="row">
+  <!-- <div class="col-md-2">
+    <mat-form-field>
+      <mat-select placeholder="Select month" [ngModel]="selectedMonth" (ngModelChange)="changeSelector($event)">
+        <ng-container *ngFor="let month of displayedMonths">
+          <mat-option [value]="month">
+          {{ month | date:'yyyy-MMM' }}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+  </div> -->
+  <div class="col-sm-3 col-md-3 col-lg-3">
+   <mat-form-field class="input-el">
+       <input
+        matInput
+        [matDatepicker]="date_"
+        placeholder="Date"
+        [formControl]="dateControl"
+        [(ngModel)]="date"
+        (ngModelChange)="changeSelector($event)"
+        required>
+      <mat-datepicker-toggle matSuffix [for]="date_"></mat-datepicker-toggle>
+      <mat-datepicker #date_></mat-datepicker>
+      <mat-error>
+        Date is required
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-form-field class="input-el">
+      <mat-select placeholder="Select shift" [ngModel]="selectedShift" (ngModelChange)="changeSelector($event)">
+        <ng-container >
+          <mat-option *ngFor="let shift of shifts" [value]="shift">
+          {{ shift.name }}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-form-field class="input-el">
+      <mat-select multiple placeholder="Select Team" [ngModel]="selectedTeams" (ngModelChange)="changeTeamSelector($event)">
+        <ng-container >
+          <mat-option *ngFor="let team of teams" [value]="team">
+          {{ team.name }}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<div id="mapview">
+  <app-mapview
+    [options]="mapOptions"
+    [mapdata]="mapdata"
+    [itinerariesStops]="organizedStops"
+    [teams]="selectedTeams">
+  </app-mapview>
+</div>

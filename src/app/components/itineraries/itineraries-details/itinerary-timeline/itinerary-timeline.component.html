@@ -1,0 +1,36 @@
+<div class="timeline">
+  <div class="timeline-help">
+    <span class="vehicle-color"></span> In vehicle
+    <span class="foot-color"></span> On foot
+    <span class="pause-color"></span> Pause (breakfast)
+  </div>
+  <div class="timeline-ruler">
+    <ul class="ruler">
+      <li *ngFor="let hour of hours; let i = index;" [class]="hour.value < 0 ? 'hour-line' : 'hour'">
+        <span *ngIf="hour.value >= 0" class="ruler-label">{{hour.label}}</span>
+        <span class="ruler-point"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="timeline-route">
+    <div *ngFor="let route of routes; let i = index;" class="route" [ngStyle]="addPadding(i)">
+      <span class="route-point" 
+      [ngClass]="{
+        'vehicle-color' : route.type === RouteType.Vehicle,
+        'foot-color' : route.type === RouteType.Foot,
+        'pause-color' : route.type === RouteType.Pause
+      }"
+      [ngStyle]="calculateStyles(i)"
+      ></span>
+      <span class="route-min" [ngStyle]="calculateStyles(i, true)"
+      >{{calculateDuration(i)}}</span>
+
+      <ul *ngIf="route.line" class="route-stop" [ngStyle]="calculateStyles(i)">
+        <li class="route-stop-name">{{route.line.name}}</li>
+        <li *ngFor="let stop of route.line.stops" class="route-stop-item">
+          {{stop}}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<div class="selection-info">
+  
+  <div class="selection-info-date">
+    <mat-form-field>
+      <input matInput
+      [matDatepicker]="dateStart"
+      placeholder="Start date"
+      (dateChange)="changeDate($event)"
+      [(ngModel)]="seletedDate">
+      <mat-datepicker-toggle matSuffix [for]="dateStart"></mat-datepicker-toggle>
+      <mat-datepicker #dateStart></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="selection-info-shift">
+    <mat-form-field>
+      <mat-select placeholder="Select Shift" [(ngModel)]="seletedShift" (ngModelChange)="changeShift($event)">
+        <ng-container *ngFor="let shift of shifts">
+          <mat-option [value]="shift">
+          {{ shift }}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="selection-info-members" *ngIf="selectedItinerary">
+    {{selectedItinerary.team?.name ? selectedItinerary.team.name : 'Team'}} &nbsp;:&nbsp;
+    <span>
+      {{selectedItinerary.team?.employees ? selectedItinerary.team.employees.length + ' members': ''}}
+    </span>
+  </div>
+</div>
+<div class="line-details" *ngIf="selectedItinerary">
+  <app-itinerary-timeline [itinerary]="selectedItinerary"></app-itinerary-timeline>
+</div>
+<div class="employees-info" *ngIf="selectedItinerary?.team?.employees">
+  <div class="employees-info-title">Employees</div>
+  <div class="employees-info-wrapper">
+      <div class="employees-info-item" *ngFor="let employee of selectedItinerary?.team?.employees" [attr.data-id]="employee.uid">
+          <ng-container *ngTemplateOutlet="card; context: {src:employee}"></ng-container>
+        </div>
+  </div>
+</div>
+<div class="no-itinerary" *ngIf="!selectedItinerary">
+  No itinerary
+</div>
+<!-- employee card template -->
+<ng-template #card let-employee="src">
+  <div class="employee-item">
+    <div class="employee-avatar">
+      <img *ngIf="!employee.picture" src="../../../../assets/user-avatar.svg" width="35" >
+      <img *ngIf="employee.picture" [src]="baseUrl + employee.picture"><br/>
+    </div>
+    <div class="employee-detail">
+      <span class="user-name">  {{employee.surname + ' ' + employee.name}} </span>
+      <span class="user-role">  {{employee.role}} </span>
+      <div class="phone">
+        <img src="../../../../assets/user-phone.svg" width="20">&nbsp;{{employee.phone}}
+      </div>
+      <div class="email">
+        <img src="../../../../assets/user-email.svg" width="20">&nbsp;{{employee.username}}
+      </div>
+    </div>
+  </div>
+</ng-template>
